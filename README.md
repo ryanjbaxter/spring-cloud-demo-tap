@@ -3,7 +3,7 @@
 ![](architecture-diagram.png)
 
 ## Prerequisites
-- TAP >=1.3 installation
+- TAP >=1.3 installation (if you've 1.2 installed, you can have a look at the "tap-1.2" tag)
 - [ytt](https://carvel.dev/ytt/)
 - The default installation of TAP uses a single Contour to provide internet-visible services. You can install a second Contour instance with service type ClusterIP if you want to expose some services to only the local cluster - which is recommended for this setup. The second instance must be installed in a separate namespace. You must set the CNR value `ingress.internal.namespace` to point to this namespace.
 - RabbitMQ operator, Tanzu PostreSQL operator, Tanzu Gemfire operator, Tanzu Observability

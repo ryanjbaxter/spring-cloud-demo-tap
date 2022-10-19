@@ -13,6 +13,7 @@ import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -24,13 +25,15 @@ public class OpenApiConfiguration {
 
     @Bean
     public OpenAPI openAPI() {
+        log.info("openAPI Bean called for route definitions");
         return new OpenAPI().info(new Info().title("Spring Cloud Architecture API").version("1.0").description(""));
     }
 
     @Bean
     public List<OpenApiBuilderCustomizer> openApiCustomizer(RouteDefinitionLocator locator, OpenAPI openApi) {
-        return Objects.requireNonNull(
-                        locator.getRouteDefinitions().collectList().block())
+        var routeDefinitions = locator.getRouteDefinitions().collectList().block();
+        log.info("openApiCustomizer Bean called for route definitions: " + routeDefinitions.stream().map(RouteDefinition::getUri).map(URI::toString).collect(Collectors.joining(",")));
+        return Objects.requireNonNull(routeDefinitions)
                 .stream()
                 .map(routeDefinition -> new GroupCustomiser(routeDefinition, openApi))
                 .collect(Collectors.toList());

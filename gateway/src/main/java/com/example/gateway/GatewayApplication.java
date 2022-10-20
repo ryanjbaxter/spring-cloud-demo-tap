@@ -17,7 +17,7 @@ public class GatewayApplication {
     }
 
     @Bean
-    public ReactiveDiscoveryClient kubernetesReactiveDiscoveryClient(WebClient.Builder webClientBuilder,
+    public ReactiveDiscoveryClient gatewayReactiveDiscoveryClient(WebClient.Builder webClientBuilder,
             KubernetesDiscoveryClientProperties properties) {
         return new KubernetesReactiveDiscoveryClient(webClientBuilder, properties);
     }
